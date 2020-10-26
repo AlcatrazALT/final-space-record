@@ -3,7 +3,7 @@ import Dialog from '@material-ui/core/Dialog';
 // Components
 import Slider from './components/Slider';
 
-const Sliderprops = {
+const SliderProps = {
   zoomFactor: 30, // How much the image should zoom on hover in percent
   slideMargin: 10, // Margin on each side of slides
   maxVisibleSlides: 5,
@@ -48,7 +48,28 @@ const App: React.FC = () => {
   
   console.log(data);
 
-  return <div>Final Space App</div>;
+  if(data.length < 1){
+    return <div>Loading...</div>
+  }
+
+  
+
+  return (
+    <>
+      <Dialog onClose={() => setIsDialogOpen(false)} open={isDialogOpen}>
+        <div>Content</div>
+      </Dialog>
+
+      <Slider {...SliderProps}>
+        {data.map(character => (
+          <div key={character.id} onClick={() => handleDialogOpen(character)}>
+            <img src={character.img_url} alt="character"/>
+          </div>
+        ))}
+      </Slider>
+      <div>Final Space App</div>
+    </>
+  );
 };
 
 export default App;
