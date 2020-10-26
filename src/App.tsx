@@ -25,6 +25,29 @@ type Character = {
 };
 
 const App: React.FC = () => {
+  const [data, setData] = useState<Character[]>([]);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [activeCharacter, setActiveCharacter] = useState<Character>();
+
+  const handleDialogOpen = (character: Character) => {
+    setIsDialogOpen(true);
+    setActiveCharacter(character);
+  }
+
+  useEffect(() => {
+    const getData = async () => {
+      const data = await (
+        await fetch('https://finalspaceapi.com/api/v0/character')
+      ).json();
+
+      setData(data);
+    }
+
+    getData();
+  }, [])
+  
+  console.log(data);
+
   return <div>Final Space App</div>;
 };
 
