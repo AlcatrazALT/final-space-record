@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Dialog from '@material-ui/core/Dialog';
 // Components
 import Slider from './components/Slider';
+import CharacterCard from './components/CharacterCard';
 
 const SliderProps = {
   zoomFactor: 30, // How much the image should zoom on hover in percent
@@ -11,7 +12,7 @@ const SliderProps = {
 };
 
 // Types
-type Character = {
+export type Character = {
   abilities: string[];
   alias: string[];
   gender: string;
@@ -27,7 +28,7 @@ type Character = {
 const App: React.FC = () => {
   const [data, setData] = useState<Character[]>([]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [activeCharacter, setActiveCharacter] = useState<Character>();
+  const [activeCharacter, setActiveCharacter] = useState<Character>({} as Character);
 
   const handleDialogOpen = (character: Character) => {
     setIsDialogOpen(true);
@@ -57,7 +58,7 @@ const App: React.FC = () => {
   return (
     <>
       <Dialog onClose={() => setIsDialogOpen(false)} open={isDialogOpen}>
-        <div>Content</div>
+        <CharacterCard character={activeCharacter}/>
       </Dialog>
 
       <Slider {...SliderProps}>
@@ -67,7 +68,6 @@ const App: React.FC = () => {
           </div>
         ))}
       </Slider>
-      <div>Final Space App</div>
     </>
   );
 };
